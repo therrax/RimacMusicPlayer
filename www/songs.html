@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="http://api.dragonet.com.pl/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="http://api.dragonet.com.pl/Content/player/RimacStyles.css" rel="stylesheet" type="text/css" />
+    <link href="http://api.dragonet.com.pl/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    <link href="http://api.dragonet.com.pl/Content/player/AudioProgressBar.css" rel="stylesheet" />
+    <script src="http://api.dragonet.com.pl/Scripts/bootstrap.min.js" ></script>
+    <title>Wyszukaj piosenki - Rimac Player</title>
+
+
+    <style>
+        .bsap {
+            display: none !important;
+        }
+    </style>
+</head>
+<body onload="Init()">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">RIMAC</a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+
+                </button>
+            </div>
+          
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+         
+                   <li class="active">
+                        <a href="./songs.html">Wyszukaj piosenkę</a>
+                    </li>
+                    <li>
+                        <a href="./artists.html">Wyszukaj artystę</a>
+                    </li>
+
+             
+                </ul>
+            
+            </div>
+        </div>
+    </div>
+    <div id="container" class="container body-content">
+        
+        
+     
+
+
+<div id="update">
+    <div style="height: 50px;"></div>
+                <h2>Znajdź piosenkę</2>
+        <div style="height: 50px;"></div>
+  <hr/>      
+    <form id="searching" action="#">
+
+        <input id="searchText" style="color:black" name="search" type="text" />
+        <button id="btn-submit" class="btn btn-primary btn-sm " type="button" onclick="Load()">Szukaj</button>
+
+    </form>
+<hr/>
+    <div class="row">
+        <div class="col-xs-1 col-lg-4"></div>
+
+        <div id="songs-items" class="col-xs-10 col-lg-4">
+
+
+        </div>
+        <div class="col-xs-1 col-lg-4"></div>
+
+
+    </div>
+
+
+
+</div>
+
+
+   
+<script src="http://api.dragonet.com.pl/Scripts/player/Songs.js"></script>
+
+
+   
+
+    </div>
+
+    <footer></footer>
+
+
+
+</body>
+<script src="http://api.dragonet.com.pl/Scripts/jquery-2.0.1.js" ></script>
+<script src="http://api.dragonet.com.pl/Scripts/jquery-ui-1.12.1.min.js" ></script>
+<script src="http://api.dragonet.com.pl/Scripts/jquery.unobtrusive-ajax.min.js" ></script>
+<script src="http://api.dragonet.com.pl/Scripts/bootstrap.min.js" ></script>
+<script src="http://api.dragonet.com.pl/Scripts/player/SongsHover.js" ></script>
+
+
+</html>
+

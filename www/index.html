@@ -1,150 +1,70 @@
-﻿<!DOCTYPE html>
-
+<!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="UTF-8"/>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-
-    <script src="js/pgb.js"></script>
-    <script src="js/cordova.js"></script>
-    <link rel="stylesheet" href="jq-mobile/jquery.mobile-1.4.5.min.css"/>
-    <script src="js/jquery.js"></script>
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/RimacStyles.css"/>
-    <script src="jq-mobile/jquery.mobile-1.4.5.min.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="http://api.dragonet.com.pl/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="http://api.dragonet.com.pl/Content/player/RimacStyles.css" rel="stylesheet" type="text/css" />
+   
+    <link href="http://api.dragonet.com.pl/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    <link href="http://api.dragonet.com.pl/Content/player/AudioProgressBar.css" rel="stylesheet" />
+    <title>Rimac Player</title>
 
 
-
+    <style>
+        .bsap {
+            display: none !important;
+        }
+    </style>
 </head>
-<body onload="init()">
-<div data-role="page" id="mainPage">
-    <div class="container">
-        <h2 style="text-align: center;">Rimac Music</h2>
-        <div id="update">
-            <form action="#" id="searching">
-                <input id="searchText" style="color: black" value="" placeholder="Szukana fraza.." type="text" />
-                <button id="btn-submit" class="btn btn-primary btn-sm " type="submit">Szukaj</button>
-            </form>
-            <div class="row" style="margin-top: 20px;">
-                <div id="songs-items" class="col-xs-12 col-lg-12"></div>
+<body onload="Init()">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">RIMAC</a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+
+                </button>
+            </div>
+          
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+         
+                    <li class="">
+                        <a href="./songs.html">Wyszukaj piosenkę</a>
+
+
+                    </li>
+                    <li>
+                        <a href="./artists.html">Wyszukaj artystę</a>
+                        
+                    </li>
+
+             
+                </ul>
+            
             </div>
         </div>
     </div>
-    
-</div>
-<script>
-    
-    let form = document.querySelector('#searching')
-    let input = document.querySelector('#searchText')
-    function init()
-    {
-        form.addEventListener('submit', loadSongs)
-
-    }
-  
-    class Song
-    {
-        constructor(Id, SongName, ArtistName, ImgUrl) {
-            this.Id = Id
-            this.SongName = SongName
-            this.ArtistName = ArtistName
-            this.ImgUrl = ImgUrl
-        }
-    }
-
-    function loadSongs()
-    {
-
-        $.ajax({
-            url: 'http://api.therrax.pl/v1/values/GetSongs?search=' + input.value,
-            method: 'GET',
-            dataType: "text",
-            success: function (data) {
-                var jsonData = JSON.parse(data);
-                let length = Object.keys(jsonData).length
-
-                let songs = document.querySelector('#songs-items')
-                songs.innerHTML = ''
-
-                for (var i = 0; i < length ; i++) {
-
-                    let Id = jsonData[i].Id
-                    let SongName = jsonData[i].SongName
-                    let ArtistName = jsonData[i].ArtistName
-                    let ImgUrl = jsonData[i].ImgUrl
-
-                    addSongToList(new Song(Id, SongName, ArtistName, ImgUrl))
-
-                }
-            }
-        })
-    }
-
-    function addSongToList(songData) {
-
-        let songs = document.querySelector('#songs-items')
-      
-        let a = document.createElement('a')
-
-        a.setAttribute('id', songData.Id)
-       
-
-        let song = document.createElement('div')
-        song.classList.add('song', 'col-xs-12', 'col-lg-12')
-
-        let songImage = document.createElement('div')
-        songImage.classList.add('song-image', 'col-xs-4', 'col-lg-3')
-
-        let image = document.createElement('img')
-        image.setAttribute('src', songData.ImgUrl)
-
-        let songDate = document.createElement('div')
-        songDate.classList.add('song-date', 'col-xs-8', 'col-lg-9')
-
-        let songDateArtist = document.createElement('div')
-        songDateArtist.classList.add('song-date-artist', 'col-xs-12', 'col-lg-12')
-        songDateArtist.innerHTML = songData.SongName +" - "+ songData.ArtistName
-
-        songImage.appendChild(image)
-        songDate.appendChild(songDateArtist)
-        song.appendChild(songImage)
-        song.appendChild(songDate)
-        a.appendChild(song)
-        a.setAttribute('onclick', 'chooseSong(' + songData.Id + ')')
-
-        songs.appendChild(a)
+    <div id="container" class="container body-content">
         
 
-    }
-    function chooseSong(id) {
-        
-        let searchText = input.value
-       
-        $.ajax({
-            url: 'http://api.therrax.pl/v1/values/ChooseSong?search=' + searchText+'&id='+id,
-            method: 'GET',
-            dataType: "text",
-            success: function (data) {
-                var jsonData = JSON.parse(data);
-                
-                let SongId = jsonData.SongId
-                let SongName = jsonData.SongName
-                let ArtistName = jsonData.ArtistName
-                let ImgUrl = jsonData.ImgUrl
 
-                playSong(new Song(SongId,SongName, ArtistName, ImgUrl))
-                
-            }
-        })
-    }
-    function playSong(songData) {
-        console.log(
-            'Utwór: '     + songData.SongName +
-            ' Wykonawca: ' + songData.ArtistName
-        )
-    }
-</script>
+    </div>
+
+    <footer></footer>
+
+
+
 </body>
+<script src="http://api.dragonet.com.pl/Scripts/jquery-2.0.1.js" async></script>
+<script src="http://api.dragonet.com.pl/Scripts/jquery-ui-1.12.1.min.js" async></script>
+<script src="http://api.dragonet.com.pl/Scripts/jquery.unobtrusive-ajax.min.js" async></script>
+<script src="http://api.dragonet.com.pl/Scripts/bootstrap.min.js" async></script>
+<script src="http://api.dragonet.com.pl/Scripts/player/SongsHover.js" async></script>
+
+
 </html>
